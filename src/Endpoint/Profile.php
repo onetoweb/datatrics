@@ -2,6 +2,8 @@
 
 namespace Onetoweb\Datatrics\Endpoint;
 
+use Onetoweb\Datatrics\Config\Method;
+
 /**
  * Profile Endpoint.
  * 
@@ -27,7 +29,7 @@ class Profile extends AbstractEndpoint
      */
     public function get(string $profileId, array $query = []): array
     {
-        return $this->request(parent::METHOD_GET, $profileId, [], $query);
+        return $this->request(Method::GET, $profileId, [], $query);
     }
     
     /**
@@ -35,7 +37,7 @@ class Profile extends AbstractEndpoint
      */
     public function list(array $query = []): array
     {
-        return $this->request(parent::METHOD_GET, null, [], $query);
+        return $this->request(Method::GET, null, [], $query);
     }
     
     /**
@@ -43,7 +45,7 @@ class Profile extends AbstractEndpoint
      */
     public function create(array $data = []): array
     {
-        return $this->request(parent::METHOD_POST, null, $data);
+        return $this->request(Method::POST, null, $data);
     }
     
     /**
@@ -52,7 +54,7 @@ class Profile extends AbstractEndpoint
      */
     public function update(string $profileId, array $data = []): array
     {
-        return $this->request(parent::METHOD_PUT, $profileId, $data);
+        return $this->request(Method::PUT, $profileId, $data);
     }
     
     /**
@@ -60,6 +62,6 @@ class Profile extends AbstractEndpoint
      */
     public function bulk(array $data = []): ?array
     {
-        return $this->request(parent::METHOD_POST, 'bulk', $data);
+        return $this->request(Method::POST, 'bulk', $data);
     }
 }

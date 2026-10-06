@@ -12,35 +12,24 @@ namespace Onetoweb\Datatrics;
  */
 class Client
 {
-    const BASE_HREF = 'https://api.datatrics.com';
-    const VERSION = '2.0';
-    
-    /**
-     * @var string
-     */
-    private $apiKey;
-    
-    /**
-     * @var int
-     */
-    private $projectId;
-    
-    /**
-     * @var string
-     */
-    private $version;
+    public const BASE_HREF = 'https://api.datatrics.com';
+    public const VERSION = '2.0';
     
     /**
      * @param string $apiKey
      * @param int $projectId
      * @param string $version = self::VERSION
      */
-    public function __construct(string $apiKey, int $projectId, string $version = self::VERSION)
-    {
-        $this->apiKey = $apiKey;
-        $this->projectId = $projectId;
-        $this->version = $version;
+    public function __construct(
         
+        #[\SensitiveParameter]
+        private string $apiKey,
+        
+        #[\SensitiveParameter]
+        private int $projectId,
+        
+        private string $version = self::VERSION
+    ) {
         $this->initializeEndpoints();
     }
     

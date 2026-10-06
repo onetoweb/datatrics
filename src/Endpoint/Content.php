@@ -2,6 +2,8 @@
 
 namespace Onetoweb\Datatrics\Endpoint;
 
+use Onetoweb\Datatrics\Config\Method;
+
 /**
  * Content Endpoint.
  * 
@@ -27,7 +29,7 @@ class Content extends AbstractEndpoint
      */
     public function get(string $contentId, array $query = []): array
     {
-        return $this->request(parent::METHOD_GET, $contentId, [], $query);
+        return $this->request(Method::GET, $contentId, [], $query);
     }
     
     /**
@@ -35,7 +37,7 @@ class Content extends AbstractEndpoint
      */
     public function list(array $query = []): array
     {
-        return $this->request(parent::METHOD_GET, null, [], $query);
+        return $this->request(Method::GET, null, [], $query);
     }
     
     /**
@@ -44,7 +46,7 @@ class Content extends AbstractEndpoint
      */
     public function create(array $data = [], array $query = []): array
     {
-        return $this->request(parent::METHOD_POST, null, $data, $query);
+        return $this->request(Method::POST, null, $data, $query);
     }
     
     /**
@@ -54,7 +56,7 @@ class Content extends AbstractEndpoint
      */
     public function update(string $contentId, array $data = [], array $query = []): array
     {
-        return $this->request(parent::METHOD_PUT, $contentId, $data, $query);
+        return $this->request(Method::PUT, $contentId, $data, $query);
     }
     
     /**
@@ -63,7 +65,7 @@ class Content extends AbstractEndpoint
      */
     public function bulk(array $data = [], array $query = []): array
     {
-        return $this->request(parent::METHOD_POST, 'bulk', $data, $query);
+        return $this->request(Method::POST, 'bulk', $data, $query);
     }
     
     /**
@@ -72,6 +74,6 @@ class Content extends AbstractEndpoint
      */
     public function delete(string $contentId, array $query = []): ?array
     {
-        return $this->request(parent::METHOD_DELETE, $contentId, [], $query);
+        return $this->request(Method::DELETE, $contentId, [], $query);
     }
 }

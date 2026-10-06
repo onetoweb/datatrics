@@ -3,6 +3,7 @@
 namespace Onetoweb\Datatrics\Endpoint;
 
 use Onetoweb\Datatrics\Client;
+use Onetoweb\Datatrics\Config\Method;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\RequestOptions;
 use GuzzleHttp\Exception\RequestException;
@@ -15,11 +16,6 @@ use GuzzleHttp\Exception\RequestException;
  */
 abstract class AbstractEndpoint implements EndpointInterface
 {
-    const METHOD_GET = 'GET';
-    const METHOD_POST = 'POST';
-    const METHOD_PUT = 'PUT';
-    const METHOD_DELETE = 'DELETE';
-    
     /**
      * @var Client
      */
@@ -34,11 +30,11 @@ abstract class AbstractEndpoint implements EndpointInterface
     }
     
     /**
-     * @param string $endpoint = null
+     * @param string|null $endpoint = null
      *
      * @return string
      */
-    private function getUrl(string $endpoint = null): string
+    private function getUrl(?string $endpoint = null): string
     {
         return rtrim(implode('/', [
             $this->client->getBaseUri(),
@@ -48,14 +44,14 @@ abstract class AbstractEndpoint implements EndpointInterface
     }
     
     /**
-     * @param string $method
-     * @param string $endpoint null
+     * @param Method $method
+     * @param string|null $endpoint = null
      * @param array $data = []
      * @param array $query = []
      * 
      * @return array|null
      */
-    public function request(string $method, string $endpoint = null, array $data = [], array $query = []): ?array
+    public function request(Method $method, ?string $endpoint = null, array $data = [], array $query = []): ?array
     {
         $options = [
             RequestOptions::HEADERS => [
@@ -65,13 +61,13 @@ abstract class AbstractEndpoint implements EndpointInterface
             RequestOptions::QUERY => $query
         ];
         
-        if (in_array($method, [self::METHOD_POST, self::METHOD_PUT])) {
+        if (in_array($method, [Method::POST, Method::PUT])) {
             $options[RequestOptions::JSON] = $data;
         }
         
         try {
             
-            $response  = (new GuzzleClient())->request($method, $this->getUrl($endpoint), $options);
+            $response  = (new GuzzleClient())->request($method->value, $this->getUrl($endpoint), $options);
             
             $contents = $response->getBody()->getContents();
             

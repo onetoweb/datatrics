@@ -2,6 +2,8 @@
 
 namespace Onetoweb\Datatrics\Endpoint;
 
+use Onetoweb\Datatrics\Config\Method;
+
 /**
  * Interaction Endpoint.
  * 
@@ -27,7 +29,7 @@ class Interaction extends AbstractEndpoint
      */
     public function get(string $interactionId, array $query = []): array
     {
-        return $this->request(parent::METHOD_GET, $interactionId, [], $query);
+        return $this->request(Method::GET, $interactionId, [], $query);
     }
     
     /**
@@ -35,7 +37,7 @@ class Interaction extends AbstractEndpoint
      */
     public function list(array $query = []): array
     {
-        return $this->request(parent::METHOD_GET, null, [], $query);
+        return $this->request(Method::GET, null, [], $query);
     }
     
     /**
@@ -43,7 +45,7 @@ class Interaction extends AbstractEndpoint
      */
     public function create(array $data = []): array
     {
-        return $this->request(parent::METHOD_POST, null, $data);
+        return $this->request(Method::POST, null, $data);
     }
     
     /**
@@ -51,6 +53,6 @@ class Interaction extends AbstractEndpoint
      */
     public function bulk(array $data = []): array
     {
-        return $this->request(parent::METHOD_POST, 'bulk', $data);
+        return $this->request(Method::POST, 'bulk', $data);
     }
 }
